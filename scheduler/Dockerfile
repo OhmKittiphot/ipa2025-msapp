@@ -1,6 +1,5 @@
-FROM python
-RUN pip install pymongo
-RUN pip install pika
+FROM python:3.12-slim
 WORKDIR /scheduler
 COPY . .
-CMD python3 scheduler
+RUN pip install -r requirements.txt
+CMD ["python3", "-u", "scheduler.py"]
