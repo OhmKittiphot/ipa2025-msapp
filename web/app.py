@@ -1,18 +1,20 @@
-from flask import Flask
-from flask import request
-from flask import render_template
-from flask import redirect
-from flask import url_for
+import os
+
+from flask import Flask, request, render_template, redirect
 from pymongo import MongoClient
 from bson import ObjectId
 
 
 app = Flask(__name__)
-client = MongoClient("mongodb://mongo:27017/")
-mydb = client["router"]
-mycol = mydb["routerdevice"]
 
-@app.route("/")
+mongo_uri  = os.environ.get("MONGO_URI")
+db_name    = os.environ.get("DB_NAME")
+
+client = MongoClient(mongo_uri)
+mydb = client[db_name]
+mycol = mydb["routers"]
+
+@app.route("/", methods=["GET"])
 def main():
     return render_template("index.html", data=mycol.find())
 
@@ -24,7 +26,7 @@ def add_comment():
 
     if IP and Username and Password:
          mycol.insert_one({"IP": IP, "Username": Username, "Password": Password})
-    return redirect(url_for("main"))
+    return redirect("/")
 
 @app.route("/delete", methods=["POST"])
 def delete_comment():
@@ -37,5 +39,5 @@ def delete_comment():
     return redirect(url_for("main"))
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8090)
+    app.run(host="0.0.0.0", port=8080)
     
