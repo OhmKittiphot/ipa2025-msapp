@@ -29,5 +29,6 @@ def scheduler():
         next_run += INTERVAL
         time.sleep(max(0.0, next_run - time.monotonic()))
 
+
 if __name__ == "__main__":
     scheduler()

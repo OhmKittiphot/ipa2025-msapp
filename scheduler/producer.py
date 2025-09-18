@@ -1,6 +1,7 @@
 import os
 import pika
 
+
 def produce(host, body):
 
     rabbitmq_user = os.getenv("RABBITMQ_DEFAULT_USER")
@@ -20,6 +21,7 @@ def produce(host, body):
     channel.basic_publish(exchange="jobs", routing_key="check_interfaces", body=body)
 
     connection.close()
+
 
 if __name__ == "__main__":
     produce("localhost", "192.168.1.44")
