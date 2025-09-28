@@ -1,33 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: msapp-web
+  name: ipa2025-msapp-web
   namespace: ipa2025
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: msapp-web
+      app: ipa2025-msapp-web
   template:
     metadata:
       labels:
-        app: msapp-web
+        app: ipa2025-msapp-web
     spec:
       containers:
-        - name: web
-          image: romieohm/web:latest     # ← เปลี่ยนให้ตรงกับใน Docker Hub
-          imagePullPolicy: Always        # ← ให้ดึงใหม่ทุกครั้ง (กันแคชเก่า)
+        - name: ipa2025-msapp-web
+          image: romieohm/web:latest
           ports:
-            - containerPort: 8080        # ← ให้ตรงกับที่แอปฟัง (ถ้าเว็บฟัง 80 ให้แก้เป็น 80)
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: 8080                 # ← แก้ตามพอร์ตจริงถ้ามี endpoint
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: 8080
-            initialDelaySeconds: 10
-            periodSeconds: 20
+            - containerPort: 8080

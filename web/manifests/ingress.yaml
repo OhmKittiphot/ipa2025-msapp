@@ -1,17 +1,17 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: sample-web-public
+  name: ipa2025-msapp-web-ingress
   namespace: ipa2025
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
-          - path: /msapp          # ← เปลี่ยนจาก / เป็น /msapp
+          - path: /
             pathType: Prefix
             backend:
               service:
-                name: sample-web-svc
+                name: ipa2025-msapp-web-service
                 port:
                   number: 80
