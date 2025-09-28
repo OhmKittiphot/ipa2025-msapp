@@ -4,7 +4,7 @@ metadata:
   name: ipa2025-msapp-web
   namespace: ipa2025
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: ipa2025-msapp-web
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ipa2025-msapp-web
-          image: romieohm/web:latest       # ✅ ตรวจสอบว่าภาพนี้อยู่ใน Docker Hub แล้ว
+          image: romieohm/web:latest     
           imagePullPolicy: Always
           ports:
-            - containerPort: 80            # ✅ ให้ตรงกับพอร์ตที่ container จริงใช้งาน
+            - containerPort: 80            
