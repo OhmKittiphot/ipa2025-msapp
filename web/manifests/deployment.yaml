@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: msapp-web
   namespace: ipa2025
-  labels:
-    app: msapp-web
 spec:
   replicas: 1
   selector:
@@ -17,15 +15,14 @@ spec:
     spec:
       containers:
         - name: web
-          # แก้เป็น image ของคุณ (เช่น DOCKERHUB_USER/ipa2025-web:1.0)
-          image: romieohm/ipa2025-web:1.0
-          imagePullPolicy: IfNotPresent
+          image: romieohm/web:latest     # ← เปลี่ยนให้ตรงกับใน Docker Hub
+          imagePullPolicy: Always        # ← ให้ดึงใหม่ทุกครั้ง (กันแคชเก่า)
           ports:
-            - containerPort: 8080
+            - containerPort: 8080        # ← ให้ตรงกับที่แอปฟัง (ถ้าเว็บฟัง 80 ให้แก้เป็น 80)
           readinessProbe:
             httpGet:
               path: /healthz
-              port: 8080
+              port: 8080                 # ← แก้ตามพอร์ตจริงถ้ามี endpoint
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:

@@ -4,8 +4,6 @@ metadata:
   name: msapp-web-svc
   namespace: ipa2025
 spec:
-  selector:
-    app: msapp-web
   ports:
     - port: 80
-      targetPort: 8080
+      targetPort: 8080 
