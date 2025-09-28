@@ -1,18 +1,17 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: sample-web-ingress
-  annotations:
-    kubernetes.io/ingress.class: nginx
+  name: msapp-web-public
+  namespace: ipa2025
 spec:
+  ingressClassName: nginx
   rules:
-    - host: sample.local
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: sample-web-svc
+                name: msapp-web-svc
                 port:
                   number: 80

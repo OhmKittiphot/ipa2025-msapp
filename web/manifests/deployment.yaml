@@ -1,21 +1,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sample-web
+  name: msapp-web
+  namespace: ipa2025
   labels:
-    app: sample-web
+    app: msapp-web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sample-web
+      app: msapp-web
   template:
     metadata:
       labels:
-        app: sample-web
+        app: msapp-web
     spec:
       containers:
         - name: web
-          image: romieohm/sample_app:v1.0
+          # แก้เป็น image ของคุณ (เช่น DOCKERHUB_USER/ipa2025-web:1.0)
+          image: romieohm/ipa2025-web:1.0
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 20
