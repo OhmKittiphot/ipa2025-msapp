@@ -4,7 +4,7 @@ metadata:
   name: ipa2025-msapp-web
   namespace: ipa2025
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: ipa2025-msapp-web
@@ -15,7 +15,9 @@ spec:
     spec:
       containers:
         - name: ipa2025-msapp-web
-          image: romieohm/web:latest     
-          imagePullPolicy: Always
+          image: romieohm/web:latest
           ports:
-            - containerPort: 80            
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: "secret-ipa2025" # ชื่อ secret ให้ตรงกับที่เราสร้าง secret ใน rancher

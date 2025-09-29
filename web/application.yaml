@@ -2,22 +2,17 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: ipa2025-msapp-web
-  namespace: devops-tools       # namespace ของ Argo CD (ไม่ใช่ namespace ของแอป)
+  namespace: devops-tools
 spec:
-  project: default
-
+  project: ipa2025
   source:
-    repoURL: 'https://github.com/romieohm/ipa2025-msapp.git'
-    targetRevision: main
-    path: web/manifests         # ตำแหน่งที่มี deployment.yaml, service.yaml, ingress.yaml
-
+    repoURL: 'https://github.com/OhmKittiphot/ipa2025-msapp.git'
+    targetRevision: HEAD
+    path: web/manifests
   destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: ipa2025          # namespace ที่อยากให้ deploy แอป
-
+    server: https://kubernetes.default.svc
+    namespace: ipa2025
   syncPolicy:
     automated:
-      prune: true               # ลบ resource ที่ไม่มีใน Git แล้ว
-      selfHeal: true            # ซ่อม resource อัตโนมัติถ้ามีใครไปแก้
-    syncOptions:
-      - CreateNamespace=true
+      prune: true
+      selfHeal: true
