@@ -18,7 +18,7 @@ spec:
           image: https://github.com/OhmKittiphot/ipa2025-msapp.git
           envFrom:
             - secretRef:
-                name: "________"
+                name: "secret-ipa2025"
           resources:
             requests:
               cpu: "50m"
