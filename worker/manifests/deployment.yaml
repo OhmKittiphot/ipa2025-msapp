@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ipa2025-msapp-worker
-          image: https://github.com/OhmKittiphot/ipa2025-msapp.git
+          image: romieohm/worker:latest
           envFrom:
             - secretRef:
                 name: "secret-ipa2025"
